@@ -9,13 +9,7 @@
 
 
 <script setup>
-import { ref } from 'vue';
 import BotonEscanearComponent from './BotonEscanearComponent.vue';
-
-
-const usuario = ref('UserName');
-const emoji_usuario = ref('👤');
-
 </script>
 
 <style scoped>
