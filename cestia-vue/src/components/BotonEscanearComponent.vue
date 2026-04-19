@@ -1,8 +1,6 @@
 ﻿<template>
   <div class="boton-escanear-container">
-   
-    <button @click="escanear" class="btn-escanear">Escanear ticket</button>
-
+    <button class="btn-escanear">Escanear ticket</button>
   </div>
 </template>
 
@@ -14,14 +12,12 @@
 
 
 
-
-
 <style scoped>
 .boton-escanear-container {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  width: 100%;
 }
 
 .btn-escanear {
