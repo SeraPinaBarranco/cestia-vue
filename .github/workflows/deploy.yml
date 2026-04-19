@@ -24,14 +24,17 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: cestia-vue/package-lock.json
 
       - run: npm install --legacy-peer-deps
+        working-directory: cestia-vue
 
       - run: npm run build
+        working-directory: cestia-vue
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: cestia-vue/dist
 
   deploy:
     needs: build
