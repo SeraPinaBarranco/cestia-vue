@@ -1,18 +1,14 @@
 
 <template>
   <div class="app-layout">
-    <HeaderComponent />
 
     <main class="app-main">
-      <nav>
+      <!-- <nav>
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link>
-      </nav>
-      <h1>You did it!</h1>
-      <p>
-        Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-        documentation
-      </p>
+      </nav> -->
+
+
       <router-view />
     </main>
 
@@ -21,7 +17,7 @@
 </template>
 
 <script setup>
-import HeaderComponent from './components/HeaderComponent.vue';
+
 import FooterComponent from './components/FooterComponent.vue';
 </script>
 
@@ -31,15 +27,55 @@ import FooterComponent from './components/FooterComponent.vue';
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  background-color: #dbccb2;
+  padding-inline: 0.75rem;
 }
 
 .app-main {
+
   flex: 1;
 }
 
 @supports not (min-height: 100dvh) {
+
+  .app-main {
+    margin: 0 auto;
+    width: 80%;
+    flex: 1;
+  }
+
   .app-layout {
     min-height: 100vh;
+  }
+}
+
+/* Mobile grande */
+@media (min-width: 480px) {
+  .app-layout {
+    padding-inline: 1rem;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .app-layout {
+    padding-inline: 1.5rem;
+  }
+}
+
+/* Laptop / Desktop */
+@media (min-width: 1024px) {
+  .app-layout {
+    margin: 0 auto;
+
+    padding-inline: 2rem;
+  }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1280px) {
+  .app-layout {
+    padding-inline: 3rem;
   }
 }
 </style>

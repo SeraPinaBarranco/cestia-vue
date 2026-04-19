@@ -1,3 +1,12 @@
 <template>
-  <h1>Home 🏠</h1>
+  <HeaderComponent/>
+  
+  <SeccionGastoMesComponent/>
 </template>
+
+<script setup>
+import SeccionGastoMesComponent from '@/components/SeccionGastoMesComponent.vue';
+import HeaderComponent from '../components/HeaderComponent.vue';
+
+
+</script>

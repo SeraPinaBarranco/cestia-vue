@@ -4,11 +4,13 @@
     <img class="cesta" src="../../public/assets/cesta.png" alt="Imagen de una cesta de compra">
 
   </header>
+  <BotonEscanearComponent/>
 </template>
 
 
 <script setup>
 import { ref } from 'vue';
+import BotonEscanearComponent from './BotonEscanearComponent.vue';
 
 
 const usuario = ref('UserName');
