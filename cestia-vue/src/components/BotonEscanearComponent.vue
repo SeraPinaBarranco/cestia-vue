@@ -23,6 +23,8 @@ const textoOCR = ref('')
 async function procesarOCR(imagen) {
   const resultado = await Tesseract.recognize(imagen, 'spa')
   textoOCR.value = resultado.data.text
+  textoOCR.value = limpiarTexto(resultado.data.text)
+
 }
 
 
@@ -51,6 +53,13 @@ async function capturarFotograma() {
   imagenCapturada.value = canvas.toDataURL('image/png')
 
   await procesarOCR(imagenCapturada.value)
+}
+
+function limpiarTexto(texto) {
+  return texto
+    .replace(/O/g, '0')         // letra O confundida con cero
+    .replace(/l(?=\d)/g, '1')   // letra l delante de número
+    .replace(/(\d),(\d)/g, '$1.$2') // coma decimal → punto
 }
 
 
