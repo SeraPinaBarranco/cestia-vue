@@ -1,6 +1,6 @@
 ﻿<template>
+  <video ref="videoRef" autoplay playsinline></video>
   <div class="boton-escanear-container">
-    <video ref="videoRef" autoplay playsinline></video>
     <button class="btn-escanear" @click="escanearTicket">Escanear ticket</button>
   </div>
 </template>
