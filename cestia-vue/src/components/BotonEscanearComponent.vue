@@ -13,9 +13,9 @@ const videoRef = ref(null);
 
 
 async function escanearTicket() {
-  alert('Escaneando ticket...');
-  // const stream = await navigator.mediaDevices.getUserMedia({ video: true })
-  // videoRef.value.srcObject = stream
+  //alert('Escaneando ticket...');
+  const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+  videoRef.value.srcObject = stream
 }
 
 </script>
