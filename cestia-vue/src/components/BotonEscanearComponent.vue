@@ -1,5 +1,7 @@
 ﻿<template>
   <video ref="videoRef" autoplay playsinline></video>
+  <canvas ref="canvasRef" style="display:none"></canvas>
+
   <div class="boton-escanear-container">
     <button class="btn-escanear" @click="escanearTicket">Escanear ticket</button>
   </div>
@@ -10,13 +12,34 @@
 import { ref } from 'vue';
 
 const videoRef = ref(null);
+const canvasRef = ref(null)
+
 
 
 async function escanearTicket() {
   //alert('Escaneando ticket...');
   const stream = await navigator.mediaDevices.getUserMedia({ video: true })
   videoRef.value.srcObject = stream
+
+  // Espera a que el vídeo esté listo antes de capturar
+  videoRef.value.onloadedmetadata = () => {
+    const imagen = capturarFotograma()
+    console.log(imagen) // Verás una URL base64 en la consola
+  }
 }
+
+function capturarFotograma() {
+  const video = videoRef.value
+  const canvas = canvasRef.value
+
+  canvas.width = video.videoWidth
+  canvas.height = video.videoHeight
+
+  canvas.getContext('2d').drawImage(video, 0, 0)
+
+  return canvas.toDataURL('image/png')
+}
+
 
 </script>
 
