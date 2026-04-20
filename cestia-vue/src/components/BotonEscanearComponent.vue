@@ -6,16 +6,24 @@
     <button class="btn-escanear" @click="escanearTicket">Escanear ticket</button>
   </div>
   <img ref="imgRef" :src="imagenCapturada" alt="Imagen capturada" v-if="imagenCapturada" />
+  <p v-if="textoOCR">{{ textoOCR }}</p>
+
 </template>
 
 
 <script setup>
 import { ref } from 'vue';
+import Tesseract from 'tesseract.js';
 
 const videoRef = ref(null);
 const canvasRef = ref(null)
 const imagenCapturada = ref(null)
+const textoOCR = ref('')
 
+async function procesarOCR(imagen) {
+  const resultado = await Tesseract.recognize(imagen, 'spa')
+  textoOCR.value = resultado.data.text
+}
 
 
 async function escanearTicket() {
@@ -24,14 +32,13 @@ async function escanearTicket() {
   videoRef.value.srcObject = stream
 
   // Espera a que el vídeo esté listo antes de capturar
-  videoRef.value.onloadedmetadata = () => {
-    capturarFotograma()
-    //const imagen = capturarFotograma()
-    //console.log(imagen) // Verás una URL base64 en la consola
+  videoRef.value.onloadedmetadata = async () => {
+    await capturarFotograma()
   }
+
 }
 
-function capturarFotograma() {
+async function capturarFotograma() {
   const video = videoRef.value
   const canvas = canvasRef.value
 
@@ -43,6 +50,7 @@ function capturarFotograma() {
   // return canvas.toDataURL('image/png')
   imagenCapturada.value = canvas.toDataURL('image/png')
 
+  await procesarOCR(imagenCapturada.value)
 }
 
 
