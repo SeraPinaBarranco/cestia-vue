@@ -5,6 +5,7 @@
   <div class="boton-escanear-container">
     <button class="btn-escanear" @click="escanearTicket">Escanear ticket</button>
   </div>
+  <img ref="imgRef" :src="imagenCapturada" alt="Imagen capturada" v-if="imagenCapturada" />
 </template>
 
 
@@ -13,18 +14,20 @@ import { ref } from 'vue';
 
 const videoRef = ref(null);
 const canvasRef = ref(null)
+const imagenCapturada = ref(null)
 
 
 
 async function escanearTicket() {
   //alert('Escaneando ticket...');
-  const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+  const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
   videoRef.value.srcObject = stream
 
   // Espera a que el vídeo esté listo antes de capturar
   videoRef.value.onloadedmetadata = () => {
-    const imagen = capturarFotograma()
-    console.log(imagen) // Verás una URL base64 en la consola
+    capturarFotograma()
+    //const imagen = capturarFotograma()
+    //console.log(imagen) // Verás una URL base64 en la consola
   }
 }
 
@@ -37,7 +40,9 @@ function capturarFotograma() {
 
   canvas.getContext('2d').drawImage(video, 0, 0)
 
-  return canvas.toDataURL('image/png')
+  // return canvas.toDataURL('image/png')
+  imagenCapturada.value = canvas.toDataURL('image/png')
+
 }
 
 
