@@ -1,11 +1,22 @@
 ﻿<template>
   <div class="boton-escanear-container">
-    <button class="btn-escanear">Escanear ticket</button>
+    <video ref="videoRef" autoplay playsinline></video>
+    <button class="btn-escanear" @click="escanearTicket">Escanear ticket</button>
   </div>
 </template>
 
 
 <script setup>
+import { ref } from 'vue';
+
+const videoRef = ref(null);
+
+
+async function escanearTicket() {
+  alert('Escaneando ticket...');
+  // const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+  // videoRef.value.srcObject = stream
+}
 
 </script>
 
