@@ -28,13 +28,14 @@ const guiaRef = ref(null)
 const imagenCapturada = ref(null)
 const textoOCR = ref('')
 const streamActivo = ref(false)
+const stream = ref(null)
 
 async function escanearTicket() {
-  const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+  stream.value = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
   streamActivo.value = true
 
   await nextTick()
-  videoRef.value.srcObject = stream
+  videoRef.value.srcObject = stream.value
   videoRef.value.onloadedmetadata = async () => {
     await capturarFotograma()
   }
@@ -64,6 +65,9 @@ async function capturarFotograma() {
   ctx.drawImage(video, cropX, cropY, cropAncho, cropAlto, 0, 0, cropAncho, cropAlto)
 
   imagenCapturada.value = canvas.toDataURL('image/png')
+
+  stream.value.getTracks().forEach(track => track.stop())
+  streamActivo.value = false
 
   const resultado = await Tesseract.recognize(imagenCapturada.value, 'spa')
   textoOCR.value = resultado.data.text
